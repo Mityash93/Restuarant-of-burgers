@@ -6,7 +6,6 @@ import Order from "./Order";
 import MenuAdmin from "./MenuAdmin";
 import sampleBurgers from "../sample-burgers";
 import base from "../base";
-import { json } from "stylus/lib/functions";
 
 class App extends React.Component {
   static propTypes = {
