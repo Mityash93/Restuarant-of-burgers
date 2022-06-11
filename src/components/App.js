@@ -5,13 +5,13 @@ import Burger from "./Burger";
 import Order from "./Order";
 import MenuAdmin from "./MenuAdmin";
 import sampleBurgers from "../sample-burgers";
-import base from '../base'
+import base from "../base";
 import { json } from "stylus/lib/functions";
 
 class App extends React.Component {
-    static propTypes = {
-        match: PropTypes.object
-    }
+  static propTypes = {
+    match: PropTypes.object,
+  };
 
   state = {
     burgers: {},
@@ -19,32 +19,31 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-      const { params } = this.props.match;
-      
-    const localStorageRef = localStorage.getItem(params.restaurantId)
-    if (localStorageRef) {
-        this.setState({ order: JSON.parse(localStorageRef) });
-    }
-    
+    const { params } = this.props.match;
 
-      this.ref = base.syncState(`${params.restaurantId}/burgers`, {
-          context: this,
-          state: 'burgers'
-      });
+    const localStorageRef = localStorage.getItem(params.restaurantId);
+    if (localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef) });
+    }
+
+    this.ref = base.syncState(`${params.restaurantId}/burgers`, {
+      context: this,
+      state: "burgers",
+    });
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     const { params } = this.props.match;
-    localStorage.setItem(params.restaurantId, JSON.stringify(this.state.order))
+    localStorage.setItem(params.restaurantId, JSON.stringify(this.state.order));
   }
 
   componentWillUnmount() {
-      base.removeBinding(this.ref);
+    base.removeBinding(this.ref);
   }
 
   addBurger = (burger) => {
     // 1. делаем копию обьекта state
-    const burgers = {...this.state.burgers };
+    const burgers = { ...this.state.burgers };
     // 2. Добавить новый бургер в переменную burgers
     burgers[`burger${Date.now()}`] = burger;
     // 3. Записать наш новый обьект burgers в state
@@ -52,44 +51,44 @@ class App extends React.Component {
   };
 
   updateBurger = (key, updatedBurger) => {
-      // 1. делаем копию обьекта state
-    const burgers = {...this.state.burgers };
+    // 1. делаем копию обьекта state
+    const burgers = { ...this.state.burgers };
     // 2. Добавить новый бургер в переменную burgers
     burgers[key] = updatedBurger;
     // 3. Записать наш новый обьект burgers в state
     this.setState({ burgers });
-  }
+  };
 
-  deleteBurger = key => {
-      // 1. делаем копию обьекта state
-    const burgers = {...this.state.burgers };
+  deleteBurger = (key) => {
+    // 1. делаем копию обьекта state
+    const burgers = { ...this.state.burgers };
     // 2. Удаляем burger
     burgers[key] = null;
     // 3. Записать наш новый обьект burgers в state
     this.setState({ burgers });
-  }
+  };
 
   loadSampleBurgers = () => {
     this.setState({ burgers: sampleBurgers });
   };
 
-  addToOrder = key => {
+  addToOrder = (key) => {
     // 1. Делаем копию объекта state
-    const order = {...this.state.order};
+    const order = { ...this.state.order };
     // 2. Добавляем ключ к заказу со знач 1, либо обновить текущ знач
     order[key] = order[key] + 1 || 1;
     // 3. Записать наш новый обьект order в state
     this.setState({ order });
-}
+  };
 
-    deleteFromOrder = key => {
+  deleteFromOrder = (key) => {
     // 1. Делаем копию объекта state
-    const order = {...this.state.order};
+    const order = { ...this.state.order };
     // 2. Удаляем burger
     delete order[key];
     // 3. Записать наш новый обьект order в state
     this.setState({ order });
-    }
+  };
 
   render() {
     return (
@@ -109,9 +108,11 @@ class App extends React.Component {
             })}
           </ul>
         </div>
-        <Order 
-        deleteFromOrder={this.deleteFromOrder}
-        burgers={this.state.burgers} order={this.state.order}/> 
+        <Order
+          deleteFromOrder={this.deleteFromOrder}
+          burgers={this.state.burgers}
+          order={this.state.order}
+        />
         {/* можно еще так {...this.state} */}
         <MenuAdmin
           addBurger={this.addBurger}

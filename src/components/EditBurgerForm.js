@@ -18,9 +18,10 @@ class EditBurgerForm extends React.Component {
   handleChange = (event) => {
     const updatedBurger = {
       ...this.props.burger,
-      [event.currentTarget.name]: event.currentTarget.name === 'price'
-        ? parseFloat(event.currentTarget.value) || 0
-        : event.currentTarget.value
+      [event.currentTarget.name]:
+        event.currentTarget.name === "price"
+          ? parseFloat(event.currentTarget.value) || 0
+          : event.currentTarget.value,
     };
     this.props.updateBurger(this.props.index, updatedBurger);
   };

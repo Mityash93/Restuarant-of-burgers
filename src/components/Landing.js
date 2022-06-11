@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import restaurants from "../sample-restaurants";
 
 const Landing = (props) => {
-
-  const [ display, toggleDisplay ] = useState(false);
-  const [ title, setTitle ] = useState('');
-  const [ url, setUrl ] = useState('');
+  const [display, toggleDisplay] = useState(false);
+  const [title, setTitle] = useState("");
+  const [url, setUrl] = useState("");
 
   const displayList = () => {
     toggleDisplay(!display);
@@ -44,10 +43,7 @@ const Landing = (props) => {
           <ul>
             {restaurants.map((restaurant) => {
               return (
-                <li
-                  onClick={() => getTitle(restaurant)}
-                  key={restaurant.id}
-                >
+                <li onClick={() => getTitle(restaurant)} key={restaurant.id}>
                   {restaurant.title}
                 </li>
               );
@@ -64,8 +60,7 @@ const Landing = (props) => {
 };
 
 Landing.propTypes = {
-  history: PropTypes.object
+  history: PropTypes.object,
 };
-
 
 export default Landing;

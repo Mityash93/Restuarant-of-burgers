@@ -4,12 +4,11 @@ import Shipment from "./Shipment";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 class Order extends React.Component {
-
   static propTypes = {
     burgers: PropTypes.object,
     order: PropTypes.object,
-    deleteFromOrder: PropTypes.func
-};
+    deleteFromOrder: PropTypes.func,
+  };
 
   renderOrder = (key) => {
     const burger = this.props.burgers[key];
@@ -18,16 +17,14 @@ class Order extends React.Component {
     const transitionOption = {
       classNames: "order",
       key,
-      timeout: { enter: 500, exit: 500 }
-    }
+      timeout: { enter: 500, exit: 500 },
+    };
 
     if (!burger) return null;
 
     if (!isAvailable) {
       return (
-        <CSSTransition
-          {...transitionOption}
-        >
+        <CSSTransition {...transitionOption}>
           <li className="unavailable" key={key}>
             Извините, {burger ? burger.name : "бургер"} временно недоступен
           </li>
@@ -35,13 +32,15 @@ class Order extends React.Component {
       );
     }
     return (
-      <CSSTransition
-      {...transitionOption}
-      >
+      <CSSTransition {...transitionOption}>
         <li key={key}>
           <span>
             <TransitionGroup component="span" className="count">
-              <CSSTransition classNames="count" key={count} timeout={{ enter: 500, exit: 500 }}>
+              <CSSTransition
+                classNames="count"
+                key={count}
+                timeout={{ enter: 500, exit: 500 }}
+              >
                 <span>{count}</span>
               </CSSTransition>
             </TransitionGroup>
